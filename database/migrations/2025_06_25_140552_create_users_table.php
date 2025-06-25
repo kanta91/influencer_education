@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('title',255);
-            $table->dateTime('posted_date');
-            $table->longText('article_contents');
+            $table->string('name',255);
+            $table->string('name_kana',255);
+            $table->string('email',255)->unique();
+            $table->string('password',255);
+            $table->string('profile_image',255)->nullable();
+            $table->foreignId('grade_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('users');
     }
 };

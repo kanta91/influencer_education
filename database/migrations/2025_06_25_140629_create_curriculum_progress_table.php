@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('curriculum_progress', function (Blueprint $table) {
             $table->id();
-            $table->string('title',255);
-            $table->dateTime('posted_date');
-            $table->longText('article_contents');
+            $table->foreignId('curriculums_id')->constrained()->onDelete('cascade');
+            $table->foreignId('users_id')->constrained()->onDelete('cascade');
+            $table->tinyInteger('clear_flg')->default(0);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('curriculum_progress');
     }
 };
