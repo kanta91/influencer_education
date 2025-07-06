@@ -41,4 +41,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class);
+    }
+
+    public function getProfileImageAttribute($value)
+    {
+        return $value ?? 'https://via.placeholder.com/100'; // 仮画像URL
+    }
+
 }
