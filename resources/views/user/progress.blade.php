@@ -27,7 +27,7 @@
             <h2>{{ $user->name }} さんの授業進捗</h2>
             <p>
                 現在の学年：
-                <span class="{{ gradeColorClass($user->grade->grade_name ?? '') }} grade-label">
+                <span class="{{ \App\Helpers\GradeHelper::gradeColorClass($user->grade->grade_name ?? '') }} grade-label">
                     {{ $user->grade->grade_name ?? '未設定' }}
                 </span>
             </p>
@@ -38,24 +38,13 @@
     {{-- 学年ごとの授業を3列で表示 --}}
     <div class="grades-container">
 
-    @php
-        use Illuminate\Support\Str;
-
-        function gradeColorClass($gradeName) {
-            if (Str::startsWith($gradeName, '小学校')) return 'elementary';
-            if (Str::startsWith($gradeName, '中学校')) return 'middle';
-            if (Str::startsWith($gradeName, '高校')) return 'high';
-            return '';
-        }
-    @endphp
-
     {{-- 学年を3つずつグループにして並べる --}}
     @foreach($grades->chunk(3) as $gradeChunk)
     <div class="grades-grid">
         @foreach($gradeChunk as $grade)
             <div class="grade-col">
                 {{-- 学年名にだけ色付け --}}
-                <div class="grade-label {{ gradeColorClass($grade->grade_name) }}">
+                <div class="grade-label {{ \App\Helpers\GradeHelper::gradeColorClass($grade->grade_name) }}">
                     {{ $grade->grade_name }}
                 </div>
 
