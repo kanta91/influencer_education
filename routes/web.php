@@ -1,18 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\PasswordController;
+// use App\Http\Controllers\User\ProgressController; ← いったん不要
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('/user/profile', [ProfileController::class, 'edit'])->name('user.profile.edit');
+Route::post('/user/profile', [ProfileController::class, 'update'])->name('user.profile.update');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/user/password', [PasswordController::class, 'edit'])->name('user.password.edit');
+Route::put('/user/password', [PasswordController::class, 'update'])->name('user.password.update');
+
+// ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+// ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+// これを削除 or コメントアウトするだけでOK
+// Route::get('/user/progress', [ProgressController::class, 'showProgress'])->name('user.progress');

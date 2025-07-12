@@ -14,11 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call([
+            GradeSeeder::class,         // ← grades テーブルにデータを入れる
+            UsersTableSeeder::class,   // ← grade_id を使う前提でユーザーを入れる
+        ]);
     }
+
 }
