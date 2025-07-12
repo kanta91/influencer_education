@@ -16,7 +16,9 @@
         <div class="nav-left">
             <a href="#">時間割</a>
             <a href="#">授業進捗</a>
-            <a href="{{ route('user.profile.edit') }}">プロフィール設定</a>
+            {{-- <a href="{{ route('user.profile.edit') }}">プロフィール設定</a> --}}
+            <a href="#">プロフィール設定（準備中）</a>
+
         </div>
         <div class="nav-right">
             <span>ログアウト</span>
@@ -25,14 +27,14 @@
 </div> 
 
     {{-- メインコンテンツ --}}
-    <main class="container">
-       <div class="back-button mb-3">
+    <main>
+        <div class="back-button mb-3">
             <button type="button" class="btn btn-secondary" onclick="history.back();">戻る</button>
         </div>
 
-
         @yield('content')
     </main>
+
 
 
     <footer class="text-center mt-5 mb-3 text-muted">

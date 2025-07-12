@@ -15,8 +15,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            GradeSeeder::class,         // ← grades テーブルにデータを入れる
-            UsersTableSeeder::class,   // ← grade_id を使う前提でユーザーを入れる
+            GradeSeeder::class,         
+            UsersTableSeeder::class,   
+            ArticlesTableSeeder::class,
         ]);
     }
 

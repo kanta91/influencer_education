@@ -190,6 +190,7 @@
     box-sizing: border-box;
 }
 
+
 .form-label {
     margin-bottom: 0; 
     padding-right: 0.25rem; 
@@ -227,3 +228,9 @@
     color: #fff !important;
 }
 
+.notification-detail {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 60px;
+    box-sizing: border-box;
+}
