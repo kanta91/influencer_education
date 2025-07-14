@@ -1,13 +1,11 @@
 .navbar {
-    background-color: rgb(255, 98, 0);
+    background-color: #87CEEB; /* 水色に変更 */
     border-radius: 8px;
     box-sizing: border-box;
     margin: 0 auto; 
     max-width: 960px; 
     padding: 20px 20px !important;
 }
-
-
 .navbar-container {
     max-width: 960px;
     margin: 0 auto;   
@@ -16,7 +14,6 @@
     justify-content: space-between;  /* 追加 */
     align-items: center;     /* 追加：縦中央揃え */
 }
-
 .nav-left {
     display: flex;
     gap: 16px;
@@ -25,7 +22,6 @@
     justify-content: flex-start;
     align-items: center;
 }
-
 .nav-right {
     flex: 1 1 auto;
     display: flex;
@@ -34,35 +30,26 @@
     max-width: 150px;
     align-items: center;
 }
-
-
 .nav-left a {
     display: inline-block;
     padding: 8px 16px;
-    background-color: green;
+    background-color: #555555; /* 濃い目のグレー */
     color: white;
     border-radius: 20px;
     font-weight: bold;
     text-decoration: none;
 }
-
 .nav-left a:hover {
     opacity: 0.9;
 }
-
-
 .nav-right span {
-    color: black;
+    color: white; /* 白色に変更 */
     font-weight: bold;
 }
-
-
 .elementary, .middle, .high {
     background-color: #ccc;
     color: white;
 }
-
-
 .elementary {
     background-color: #add8e6 !important;
 }
@@ -72,15 +59,11 @@
 .high {
     background-color: #9acd32 !important;
 }
-
-
 .completed-label {
     color: red;
     font-weight: bold;
     margin-right: 6px;
 }
-
-
 .grades-grid {
     display: flex;
     justify-content: center; 
@@ -91,8 +74,6 @@
     box-sizing: border-box;  
     padding: 0 10px;        
 }
-
-
 .grade-col {
     flex: 0 0 220px; 
     max-width: 220px; 
@@ -103,59 +84,42 @@
     margin: 0 8px;
     box-sizing: border-box;
 }
-
-
 .grade-col h3 {
     text-align: center;
 }
-
-
 .grade-col ul {
     list-style: none;
     padding-left: 0;
     text-align: center; 
 }
-
-
 .grade-col ul li {
     margin-bottom: 5px;
 }
-
-
 .grade-label {
     display: inline-block;
     min-width: 100px;
     text-align: center;
 }
-
-
 .grade-label.elementary {
     background-color: #add8e6;
 }
-
 .grade-label.middle {
     background-color: #50c878; 
 }
-
 .grade-label.high {
     background-color: #9acd32; 
 }
-
-
 .progress-container {
     max-width: 960px;
     margin: 0 auto;
     padding: 0 20px;
     box-sizing: border-box;
 }
-
 .profile-info {
     display: flex;
     align-items: center;
     margin-bottom: 30px;
 }
-
-
 .profile-img {
     width: 100px;
     height: 100px;
@@ -163,48 +127,39 @@
     margin-left: 10px;  
     margin-right: 20px;
 }
-
 .progress-container {
     max-width: 960px;
     margin: 0 auto;
     padding: 0 20px;
     box-sizing: border-box;
 }
-
 .page-title {
     padding-left: 1rem; 
     margin-bottom: 1rem;
 }
-
 .fixed-bottom-left {
     position: fixed;
     bottom: 20px;  
     left: 20px;    
     z-index: 1050;  
 }
-
 .back-button {
     max-width: 960px;
     margin: 10px auto 0;
     padding: 0 20px;
     box-sizing: border-box;
 }
-
-
 .form-label {
     margin-bottom: 0; 
     padding-right: 0.25rem; 
 }
-
 .form-control {
     margin-bottom: 0;
 }
-
 .row > [class*='col-'] {
     padding-left: 0.25rem;
     padding-right: 0.25rem;
 }
-
 .fixed-label {
         width: 150px; 
         margin-bottom: 0;
@@ -212,25 +167,78 @@
         padding-right: 0.75rem;
         font-weight: 600;
     }
-
 .form-control {
         min-width: 0; 
     }
-
 .btn-orange {
     background-color: rgb(255, 98, 0) !important;
     color: #fff !important;
     border: none !important;
 }
-
 .btn-orange:hover {
     background-color: rgb(230, 85, 0) !important;
     color: #fff !important;
 }
-
 .notification-detail {
     max-width: 960px;
     margin: 0 auto;
     padding: 0 60px;
     box-sizing: border-box;
+}
+/* お知らせ一覧のコンテナ幅を統一 */
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+/* お知らせ一覧のテーブル幅調整 */
+.table {
+    width: 100%;
+    table-layout: fixed; /* テーブルの幅を固定 */
+}
+/* テーブルヘッダーの幅調整（操作列なし） */
+.table th:first-child {
+    width: 150px; /* 投稿日時の幅 */
+}
+.table th:nth-child(2) {
+    width: auto; /* タイトルは残りの幅を使用 */
+}
+
+/* 変更ボタン（深いシアンブルー） */
+.btn-dark-cyan {
+    background-color: #008B8B !important;
+    color: white !important;
+    border: none !important;
+}
+.btn-dark-cyan:hover {
+    background-color: #006666 !important;
+    color: white !important;
+}
+
+/* 削除ボタン（朱色） */
+.btn-vermillion {
+    background-color: #DC143C !important;
+    color: white !important;
+    border: none !important;
+}
+.btn-vermillion:hover {
+    background-color: #B22222 !important;
+    color: white !important;
+}
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .table th:first-child {
+        width: 120px;
+    }
+    
+    /* 小さい画面でのボタン調整 */
+    .btn-sm {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.875rem;
+    }
 }
