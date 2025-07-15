@@ -5,7 +5,7 @@
     <h1 class="mb-3">お知らせ一覧</h1>
     
     <div class="mb-3">
-        <a href="{{ route('admin.notice.create') }}" class="btn btn-primary">新規登録</a>
+        <a href="{{ route('admin.notice.create') }}" class="btn btn-primary btn-sm">新規登録</a>
     </div>
     
     <div class="table-responsive">
