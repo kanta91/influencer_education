@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller; // ← これが正解！
+use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Http\Requests\AdminNoticeRequest;
+
 
 class NoticeController extends Controller
 {
@@ -18,21 +21,15 @@ class NoticeController extends Controller
     // 新規登録フォーム表示
     public function create()
     {
-        return view('admin.notices.create');
+        return view('admin.notices.edit', ['notice' => null]);
     }
 
-    // 新規登録処理
-    public function store(Request $request)
+    // 登録処理
+    public function store(AdminNoticeRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'posted_date' => 'required|date',
-            'article_contents' => 'required|string',
-        ]);
+        Article::create($request->validated());
 
-        Article::create($validated);
-
-        return redirect()->route('admin.notices.index')->with('success', 'お知らせを登録しました。');
+        return redirect()->route('admin.notice.index')->with('success', 'お知らせを登録しました。');
     }
 
     // 編集フォーム表示
@@ -43,19 +40,12 @@ class NoticeController extends Controller
     }
 
     // 更新処理
-    public function update(Request $request, $id)
+    public function update(AdminNoticeRequest $request, $id)
     {
         $notice = Article::findOrFail($id);
+        $notice->update($request->validated());
 
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'posted_date' => 'required|date',
-            'article_contents' => 'required|string',
-        ]);
-
-        $notice->update($validated);
-
-        return redirect()->route('admin.notices.index')->with('success', 'お知らせを更新しました。');
+        return redirect()->route('admin.notice.index')->with('success', 'お知らせを更新しました。');
     }
 
     // 削除処理
@@ -64,6 +54,6 @@ class NoticeController extends Controller
         $notice = Article::findOrFail($id);
         $notice->delete();
 
-        return redirect()->route('admin.notices.index')->with('success', 'お知らせを削除しました。');
+        return redirect()->route('admin.notice.index')->with('success', 'お知らせを削除しました。');
     }
 }

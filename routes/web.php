@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\NoticeController; // ← これが正解！
+use App\Http\Controllers\Admin\NoticeController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/notice', [NoticeController::class, 'index'])->name('notice.index');
