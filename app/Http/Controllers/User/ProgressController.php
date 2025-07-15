@@ -4,27 +4,47 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Progress;
 use App\Models\User;
+use App\Models\Grade;
 use App\Helpers\GradeHelper;
 
 class ProgressController extends Controller
 {
-    public function showProgress()
-{
-    $user = User::find(1); 
+    /**
+     * 進捗画面を表示（ルート名に合わせて修正）
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
+    public function showProgress(Request $request)
+    {
+        // 仮でユーザーを取得（ログイン処理スキップのため）
+        $user = User::with('grade')->first(); // 例えばDBの最初のユーザーを取得
+        
+        if (!$user) {
+            abort(404, 'ユーザーが存在しません');
+        }
 
-    $order = config('grades.order');
+        // 全学年を取得して順序でソート
+        $grades = Grade::with(['classes' => function ($query) use ($user) {
+            $query->with(['userProgress' => function ($subQuery) use ($user) {
+                $subQuery->where('user_id', $user->id);
+            }]);
+        }])->get();
 
-    $grades = \App\Models\Grade::with('classes')->get()->map(function ($grade) {
-        $grade->color_class = GradeHelper::gradeColorClass($grade->grade_name);
-        return $grade;
-    })->sortBy(function ($grade) use ($order) {
-        return array_search($grade->grade_name, $order);
-    })->values();
+        // 学年を正しい順序でソート
+        $grades = $grades->sortBy(function ($grade) {
+            return GradeHelper::getGradeOrder($grade->grade_name);
+        });
 
-    return view('user.progress', compact('user', 'grades'));
-}
+        // 各授業の受講状況を設定
+        foreach ($grades as $grade) {
+            foreach ($grade->classes as $class) {
+                $class->is_completed = $class->userProgress->isNotEmpty();
+            }
+        }
 
+        return view('user.progress', compact('user', 'grades'));
+    }
 
 }

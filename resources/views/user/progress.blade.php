@@ -2,70 +2,44 @@
 
 @section('content')
 <div class="progress-container">
-
-    {{-- ナビゲーション --}}
-    <div class="navbar">
-        <div class="nav-left">
-            <a href="#">時間割</a>
-            <a href="#">授業進捗</a>
-            <a href="#">プロフィール設定</a>
-        </div>
-        <div class="nav-right">
-           <span>ログアウト</span>
-        </div>
-    </div>
-
-    {{-- 戻るボタン --}}
-    <div class="back-btn">
-        <a href="#">← 戻る</a>
-    </div>
-
     {{-- プロフィール情報 --}}
-    <div class="profile-info">
-        <img src="{{ $user->profile_image ?? 'https://via.placeholder.com/100' }}" alt="プロフィール画像" class="profile-img">
-        <div class="user-info">
-            <h2>{{ $user->name }} さんの授業進捗</h2>
-            <p>
-                現在の学年：
-                <span class="{{ \App\Helpers\GradeHelper::gradeColorClass($user->grade->grade_name ?? '') }} grade-label">
+    <div class="profile-section">
+        <img src="{{ $user->profile_image ?? asset('images/default-profile.svg') }}" alt="プロフィール画像" class="profile-img">
+        <div class="profile-info">
+            <h2>{{ $user->name }}さんの授業進捗</h2>
+            <div class="current-grade">
+                <span>現在の学年：</span>
+                <span class="grade-badge {{ \App\Helpers\GradeHelper::gradeColorClass($user->grade->grade_name ?? '') }}">
                     {{ $user->grade->grade_name ?? '未設定' }}
                 </span>
-            </p>
+            </div>
         </div>
     </div>
 
-
-    {{-- 学年ごとの授業を3列で表示 --}}
     <div class="grades-container">
-
-    {{-- 学年を3つずつグループにして並べる --}}
-    @foreach($grades->chunk(3) as $gradeChunk)
-    <div class="grades-grid">
-        @foreach($gradeChunk as $grade)
-            <div class="grade-col">
-                {{-- 学年名にだけ色付け --}}
-                <div class="grade-label {{ \App\Helpers\GradeHelper::gradeColorClass($grade->grade_name) }}">
-                    {{ $grade->grade_name }}
-                </div>
-
-                <ul>
-                    @foreach($grade->classes->take(5) as $class)
-                        <li>
-                            @if($class->is_completed ?? false)
-                                <span class="completed-label">受講済</span>
-                            @endif
-                            授業{{ explode('（', $class->title)[0] }}
-                        </li>
-                    @endforeach
-                </ul>
+        @foreach($grades->chunk(3) as $gradeChunk)
+            <div class="grade-row">
+                @foreach($gradeChunk as $grade)
+                    <div class="grade-section">
+                        <div class="grade-header {{ \App\Helpers\GradeHelper::gradeColorClass($grade->grade_name) }}">
+                            {{ $grade->grade_name }}
+                        </div>
+                        <ul class="lesson-list">
+                            @foreach($grade->classes->take(5) as $class)
+                                <li class="lesson-item">
+                                    @if($class->is_completed ?? false)
+                                        <span class="completed-badge">受講済</span>
+                                    @endif
+                                    <span class="lesson-title">授業{{ $class->title }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endforeach
             </div>
         @endforeach
     </div>
-@endforeach
 
-
-
-</div>
 
 
 </div>
