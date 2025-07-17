@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB; 
 use Carbon\Carbon;
 use App\Http\Requests\AdminNoticeRequest;
-
 
 class NoticeController extends Controller
 {
@@ -27,7 +27,9 @@ class NoticeController extends Controller
     // 登録処理
     public function store(AdminNoticeRequest $request)
     {
-        Article::create($request->validated());
+        DB::transaction(function () use ($request) {
+            Article::create($request->validated());
+        });
 
         return redirect()->route('admin.notice.index')->with('success', 'お知らせを登録しました。');
     }
@@ -43,7 +45,10 @@ class NoticeController extends Controller
     public function update(AdminNoticeRequest $request, $id)
     {
         $notice = Article::findOrFail($id);
-        $notice->update($request->validated());
+
+        DB::transaction(function () use ($notice, $request) {
+            $notice->update($request->validated());
+        });
 
         return redirect()->route('admin.notice.index')->with('success', 'お知らせを更新しました。');
     }
@@ -52,7 +57,10 @@ class NoticeController extends Controller
     public function destroy($id)
     {
         $notice = Article::findOrFail($id);
-        $notice->delete();
+
+        DB::transaction(function () use ($notice) {
+            $notice->delete();
+        });
 
         return redirect()->route('admin.notice.index')->with('success', 'お知らせを削除しました。');
     }
