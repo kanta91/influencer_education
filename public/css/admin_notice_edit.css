@@ -1,0 +1,32 @@
+/* admin_notice_edit.css */
+.form-label {
+    margin-bottom: 0.25rem; 
+    padding-right: 0.25rem; 
+    font-weight: 600;
+}
+.form-control {
+    margin-bottom: 0;
+    min-width: 0;
+}
+.form-section {
+    margin-bottom: 24px;
+}
+.btn-dark-cyan {
+    background-color: #495057 !important; /* 濃いグレー色 */
+    color: white !important;
+    border: none !important;
+    padding: 8px 100px !important; /* 左右のpaddingを広げる */
+    font-weight: bold;
+    display: block; /* ブロック要素にする */
+    margin: 20px auto 0 auto; /* 上下にマージン、左右は自動で中央配置 */
+}
+.btn-dark-cyan:hover {
+    background-color: #343a40 !important; /* ホバー時のより濃いグレー */
+    color: white !important;
+}
+
+/* フォームの幅調整 */
+.notice-edit-form {
+    max-width: 800px; /* 必要に応じて調整 */
+    margin: 0 auto; /* 中央揃え */
+}
