@@ -20,8 +20,10 @@ Route::get('/', function () {
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/curriculum_list/{gradeId?}', [CurriculumController::class, 'showCurriculumList'])->name('show.curriculum.list');
-    Route::get('/curriculum_create', [CurriculumController::class, 'showCurriculumCreate'])->name('show.curriculum.create');
+    Route::get('/curriculum_create/', [CurriculumController::class, 'showCurriculumCreate'])->name('show.curriculum.create');
     Route::get('/curriculum_edit/{id}', [CurriculumController::class, 'showCurriculumEdit'])->name('show.curriculum.edit');
     Route::get('/delivery_edit/{id}', [DeliveryController::class, 'showDeliveryEdit'])->name('show.delivery.edit');
     Route::get('/ajax/curriculums/{gradeId}', [CurriculumController::class, 'getCurriculumsByGradeAjax']);
+    Route::post('/curriculum_store', [CurriculumController::class, 'showCurriculumStore'])->name('show.curriculum.store');
+    Route::put('/curriculum_update/{id}', [CurriculumController::class, 'showCurriculumUpdate'])->name('show.curriculum.update');
 });

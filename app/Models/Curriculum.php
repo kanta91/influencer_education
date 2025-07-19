@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 class Curriculum extends Model
 {
-    public function getByGradeId($gradeId){
+    protected $table = 'curriculums';
+    
+    public function getByGradeId($gradeId)
+    {
         $curriculums = DB::table('curriculums')
             ->leftjoin('grades', 'curriculums.grade_id', '=', 'grades.id')
             ->leftjoin('delivery_times', 'curriculums.id', '=', 'delivery_times.curriculum_id')
@@ -25,5 +28,32 @@ class Curriculum extends Model
             ->get();
         
         return $curriculums;
+    }
+
+    public function showCurriculumStore($request,$thumbnail)
+    {
+        DB::table('curriculums')->insert([
+            'thumbnail' => $thumbnail ?? 'sample.jpg',
+            'grade_id' => $request->input('grade_id'),
+            'title' => $request->input('title'),
+            'video_url' => $request->input('video_url'),
+            'description' => $request->input('description'),
+            'always_delivery_flg' => $request->input('alway_delivery_flg',0),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+    }
+
+    public function showCurriculumUpdate($request,$thumbnail,$id)
+    {
+        DB::table('curriculums')->where('id' ,$id)->update([
+            'thumbnail' => $thumbnail,
+            'grade_id' => $request->input('grade_id'),
+            'title' => $request->input('title'),
+            'video_url' => $request->input('video_url'),
+            'description' => $request->input('description'),
+            'always_delivery_flg' => $request->input('alway_delivery_flg',0),
+            'updated_at' => now(),
+        ]);
     }
 }

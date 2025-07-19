@@ -22,7 +22,7 @@
                     $gradeClass .= ' senior';
                 }
             @endphp
-             <a href="{{ route('admin.show.curriculum.list', $grade->id) }}" class=" {{ $gradeClass }}">
+             <a href="{{ route('admin.show.curriculum.list', $grade->id) }}" class="{{ $gradeClass }}">
                 {{ $grade->grade_name }}
             </a>
         @endforeach
@@ -34,7 +34,7 @@
             <div class="curriculum-grid">
                 @foreach ($curriculums as $curriculum)
                     <div class="curriculum-card">
-                    <img src="{{ asset('storage/images/' . ($curriculum->thumbnail ?? 'sample.jpg')) }}" alt="サムネイル" class="thumbnail">
+                    <img src="{{ asset('storage/images/' . ($curriculum->thumbnail ?? 'images/sample.jpg')) }}" alt="サムネイル" class="thumbnail">
 
                         <h4>{{ $curriculum->title }}</h4>
 
@@ -69,7 +69,7 @@
                         data.forEach(c => {
                             grid.innerHTML += `
                                 <div class="curriculum-card">
-                                    <img src="/storage/images/${c.thumbnail ?? 'sample.jpg'}" class="thumbnail" />
+                                    <img src="/storage/images/${c.thumbnail ?? 'images/sample.jpg'}" class="thumbnail" />
                                     <h4>${c.title}</h4>
                                     <ul class="delivery-dates">
                                         <li>${c.delivery_from ?? '7月13日'} ~ ${c.delivery_to ?? '7月13日'}</li>
@@ -84,7 +84,7 @@
                             `;
                         });
 
-                        const gradeName = this.textContent;
+                        const gradeName = this.textContent.trim();
                         document.querySelector('.current-grade').textContent = `${gradeName}の授業`;
                     });
             });
