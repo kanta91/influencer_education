@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\NoticeController;
 use App\Http\Controllers\User\ProgressController;
+use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\PasswordController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +31,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // ユーザー用ルート
 Route::prefix('user')->name('user.')->group(function () {
     Route::get('/progress', [ProgressController::class, 'showProgress'])->name('progress');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/password', [PasswordController::class, 'edit'])->name('password.edit');
+Route::post('/password', [PasswordController::class, 'update'])->name('password.update');
 });
