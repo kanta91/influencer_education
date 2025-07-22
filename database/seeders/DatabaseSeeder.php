@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,          
             ArticlesTableSeeder::class,
             CurriculumSeeder::class,
+            CurriculumProgressSeeder::class,
         ]);
         
         // \App\Models\User::factory(10)->create();
