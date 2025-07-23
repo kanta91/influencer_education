@@ -16,6 +16,11 @@
         </div>
     </div>
 
+    @php
+        // ヌル安全
+        $userGradeId = $user->grade_id ?? 0;
+    @endphp
+
     <div class="grades-container">
         @foreach($grades->chunk(3) as $gradeChunk)
             <div class="grade-row">
@@ -24,23 +29,32 @@
                         <div class="grade-header {{ \App\Helpers\GradeHelper::gradeColorClass($grade->grade_name) }}">
                             {{ $grade->grade_name }}
                         </div>
+
                         <ul class="lesson-list">
                             @foreach($grade->classes->take(5) as $class)
                                 <li class="lesson-item">
                                     @if($class->is_completed ?? false)
                                         <span class="completed-badge">受講済</span>
                                     @endif
-                                    <span class="lesson-title">授業{{ $class->title }}</span>
+
+                                    @if($grade->id <= $userGradeId)
+                                        {{-- ユーザーの学年以下の授業はリンクにする --}}
+                                        <a href="{{ route('user.delivery.show', ['id' => $class->id]) }}" class="lesson-title">
+                                            授業{{ $class->title }}
+                                        </a>
+                                    @else
+                                        {{-- ユーザー学年より上：リンクなし（スタイルで非活性表示） --}}
+                                        <span class="lesson-title lesson-disabled">授業{{ $class->title }}</span>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>
+
                     </div>
                 @endforeach
             </div>
         @endforeach
     </div>
-
-
 
 </div>
 @endsection

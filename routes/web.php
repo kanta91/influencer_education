@@ -34,5 +34,11 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/password', [PasswordController::class, 'edit'])->name('password.edit');
-Route::post('/password', [PasswordController::class, 'update'])->name('password.update');
+    Route::post('/password', [PasswordController::class, 'update'])->name('password.update');
+    Route::get('/delivery/{id}', [DeliveryController::class, 'show'])->name('delivery.show');
+
+});
+
+Route::get('/', function () {
+    return redirect()->route('user.progress');
 });

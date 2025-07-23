@@ -20,14 +20,13 @@
                 @if(request()->is('admin/*'))
                     {{-- 管理者メニュー --}}
                     <a href="#">授業管理</a>
-                    <a href="#">お知らせ管理</a>
+                    <a href="{{ route('admin.notice.index') }}">お知らせ管理</a>
                     <a href="#">バナー管理</a>
                 @elseif(request()->is('user/*'))
                     {{-- ユーザーメニュー --}}
                     <a href="#">時間割</a>
-                    <a href="#">授業進捗</a>
-                    {{-- <a href="{{ route('user.profile.edit') }}">プロフィール設定</a> --}}
-                    <a href="#">プロフィール設定（準備中）</a>
+                    <a href="{{ route('user.progress') }}">授業進捗</a>
+                    <a href="{{ route('user.profile.edit') }}">プロフィール設定</a>
                 @else
                     {{-- その他、必要に応じて --}}
                 @endif
