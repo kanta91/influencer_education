@@ -37,6 +37,15 @@ class CurriculumController extends Controller
         return response()->json($curriculums);
     }
 
+    private function saveThumbnail($img, $defaultThumbnail = null){
+        if ($img !== null) {
+            $file_name = $img->getClientOriginalName();
+            $img->storeAs('public/images', $file_name);
+            return 'images/' . $file_name;
+        }
+
+        return $defaultThumbnail;
+    }
 
     public function showCurriculumCreate() {
         $GradeModel = new Grade();
@@ -48,13 +57,7 @@ class CurriculumController extends Controller
     public function showCurriculumStore(CurriculumRequest $request){
 
         $img = $request->file('thumbnail');
-        $thumbnail = null;
-    
-        if ($img !== null) {
-            $file_name = $img->getClientOriginalName();
-            $img->storeAs('public/images', $file_name);
-            $thumbnail = 'images/' . $file_name;
-        }
+        $thumbnail = $this->saveThumbnail($img);
 
         DB::beginTransaction();
 
@@ -87,13 +90,7 @@ class CurriculumController extends Controller
         $curriculum = $CurriculumModel->where('id', $id)->first();
 
         $img = $request->file('thumbnail');
-        $thumbnail = $curriculum->thumbnail;
-    
-        if ($img !== null) {
-            $file_name = $img->getClientOriginalName();
-            $img->storeAs('public/images', $file_name);
-            $thumbnail = 'images/' . $file_name;
-        }
+        $thumbnail = $this->saveThumbnail($img,$curriculum->thumbnail);
 
         DB::beginTransaction();
 
