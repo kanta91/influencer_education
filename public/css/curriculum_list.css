@@ -1,0 +1,113 @@
+.curriculum-wrapper{
+    display: flex;
+    margin-top: 30px;
+    gap: 10px;
+
+}
+
+.backbtn{
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.create-btn {
+    font-size: 30px;
+}
+
+.page-title{
+    margin: 20px 0;
+} 
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2px; 
+    margin-top: 50px;
+    margin-right: 50px;
+    width: 100px;
+    max-width: 100px;
+    min-width: 100px;
+}
+
+.grade-btn{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    background-color: #ccc;
+    border: solid ;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 1px 0;
+}
+
+.grade-btn.elementary {
+    background-color: #e0f7fa;
+    color: #007b8a;
+    border-color: #00bcd4;
+}
+
+.grade-btn.junior {
+    background-color: #fce4ec;
+    color: #c2185b;
+    border-color: #f06292;
+}
+
+.grade-btn.senior {
+    background-color: #ede7f6;
+    color: #512da8;
+    border-color: #9575cd;
+}
+
+.curriculum-main{
+    padding: 0 20px;
+    border-left: solid;
+    padding-left: 30px;
+}
+
+.current-grade{
+    display: inline-block;
+    background-color: #7dfafa;
+    border: solid ;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.curriculum-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 1rem;
+}
+
+.curriculum-card{
+    width: 280px;
+    border: solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.thumbnail{
+    width: 100%;
+    height: auto;   
+    margin-bottom: 15px;
+}
+
+.delivery-dates{
+    list-style: none;
+    padding: 0;
+    font-size: 18px;
+    margin: 12px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.button-group .btn {
+    font-size: 13px;
+    padding: 6px 12px;
+}
