@@ -22,13 +22,14 @@ class PasswordController extends Controller
     /**
      * パスワード更新処理
      */
-    public function update(UpdateUserPasswordRequest $request)
+   public function update(UpdateUserPasswordRequest $request)
     {
         $user = Auth::user();
 
         $user->password = Hash::make($request->new_password);
         $user->save();
 
-        return redirect()->route('user.password.edit')->with('success', 'パスワードを更新しました。');
+        // パスワード変更後、プロフィール設定画面に遷移
+        return redirect()->route('user.profile.edit')->with('success', 'パスワードを更新しました。');
     }
 }

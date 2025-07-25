@@ -7,7 +7,10 @@
 
     {{-- 成功メッセージ --}}
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="閉じる"></button>
+        </div>
     @endif
 
     {{-- バリデーションエラー --}}
@@ -49,7 +52,7 @@
 
         <div class="mb-3 d-flex align-items-center">
             <label for="name" class="{{ $labelClass }}">ユーザーネーム</label>
-            <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" class="form-control @error('name') is-invalid @enderror" style="flex:1;">
+            <input type="text" name="name" value="{{ old('name', $user->name) }}" class="form-control">
             @error('name')
                 <div class="invalid-feedback d-block">{{ $message }}</div>
             @enderror

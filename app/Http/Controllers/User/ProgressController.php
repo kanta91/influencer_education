@@ -11,15 +11,15 @@ use App\Helpers\GradeHelper;
 class ProgressController extends Controller
 {
     /**
-     * 進捗画面を表示（ルート名に合わせて修正）
-     *
+
      * @param Request $request
      * @return \Illuminate\View\View
      */
     public function showProgress(Request $request)
     {
         // 仮でユーザーを取得（ログイン処理スキップのため）
-        $user = User::with('grade')->first(); // 例えばDBの最初のユーザーを取得
+         $user = User::with('grade')->first(); // 例えばDBの最初のユーザーを取得
+
         
         if (!$user) {
             abort(404, 'ユーザーが存在しません');

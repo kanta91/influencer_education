@@ -104,7 +104,7 @@ body {
     height: 100px;
     border-radius: 50%;
     margin-left: 10px;
-    margin-right: 20px;
+    margin-right: 10px; /* 20pxから10pxに変更して間隔を詰める */
     object-fit: cover;
     border: 3px solid #ddd;
 }
@@ -117,7 +117,7 @@ body {
 
 .profile-info h2 {
     font-size: 22px;
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* 10pxから5pxに変更して余白を詰める */
     color: #333;
 }
 
@@ -127,6 +127,7 @@ body {
     gap: 10px;
     font-size: 16px;
     justify-content: flex-start !important; /* 左寄せにする */
+    transform: translateX(-60px); /* 学年情報だけを左に移動 */
 }
 
 /* 学年バッジ */

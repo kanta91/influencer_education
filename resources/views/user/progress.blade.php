@@ -4,7 +4,7 @@
 <div class="progress-container">
     {{-- プロフィール情報 --}}
     <div class="profile-section">
-        <img src="{{ $user->profile_image ?? asset('images/default-profile.svg') }}" alt="プロフィール画像" class="profile-img">
+        <img src="{{ asset('storage/' . $user->profile_image) ?? asset('images/default-profile.svg') }}" alt="プロフィール画像" class="profile-img">
         <div class="profile-info">
             <h2>{{ $user->name }}さんの授業進捗</h2>
             <div class="current-grade">
