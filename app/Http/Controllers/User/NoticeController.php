@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Http\Requests\StoreArticleRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\UpdateArticleRequest;
+use App\Http\Controllers\User\NoticeController;
 
 class NoticeController extends Controller
 {

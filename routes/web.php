@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Admin\NoticeController;
+use App\Http\Controllers\Admin\NoticeController as AdminNoticeController;
+use App\Http\Controllers\User\NoticeController as UserNoticeController;
 use App\Http\Controllers\User\ProgressController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\PasswordController;
@@ -21,12 +22,12 @@ use App\Http\Controllers\User\DeliveryController;
 
 // 管理者用ルート
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/notice', [NoticeController::class, 'index'])->name('notice.index');
-    Route::get('/notice/create', [NoticeController::class, 'create'])->name('notice.create');
-    Route::post('/notice', [NoticeController::class, 'store'])->name('notice.store');
-    Route::get('/notice/{id}/edit', [NoticeController::class, 'edit'])->name('notice.edit');
-    Route::put('/notice/{id}', [NoticeController::class, 'update'])->name('notice.update');
-    Route::delete('/notice/{id}', [NoticeController::class, 'destroy'])->name('notice.destroy');
+    Route::get('/notice', [AdminNoticeController::class, 'index'])->name('notice.index');
+    Route::get('/notice/create', [AdminNoticeController::class, 'create'])->name('notice.create');
+    Route::post('/notice', [AdminNoticeController::class, 'store'])->name('notice.store');
+    Route::get('/notice/{id}/edit', [AdminNoticeController::class, 'edit'])->name('notice.edit');
+    Route::put('/notice/{id}', [AdminNoticeController::class, 'update'])->name('notice.update');
+    Route::delete('/notice/{id}', [AdminNoticeController::class, 'destroy'])->name('notice.destroy');
 });
 
 // ユーザー用ルート
@@ -37,8 +38,9 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::get('/password', [PasswordController::class, 'edit'])->name('password.edit');
     Route::match(['put', 'post'], '/password', [PasswordController::class, 'update'])->name('password.update'); 
     Route::get('/delivery/{id}', [DeliveryController::class, 'show'])->name('delivery.show');
-
+    Route::get('/notice/{id}', [UserNoticeController::class, 'show'])->name('notice.show');
 });
+
 
 Route::get('/', function () {
     return redirect()->route('user.progress');
