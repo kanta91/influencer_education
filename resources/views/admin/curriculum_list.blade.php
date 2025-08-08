@@ -34,19 +34,21 @@
             <div class="curriculum-grid">
                 @foreach ($curriculums as $curriculum)
                     <div class="curriculum-card">
-                    <img src="{{ asset('storage/images/' . ($curriculum->thumbnail ?? 'images/sample.jpg')) }}" alt="サムネイル" class="thumbnail">
+                        <img src="{{ asset('storage/images/' . ($curriculum->thumbnail ?? 'images/sample.jpg')) }}" alt="サムネイル" class="thumbnail">
 
-                        <h4>{{ $curriculum->title }}</h4>
+                        <div class="card-body">
+                            <h4 class="card-title">{{ $curriculum->title }}</h4>
 
-                        <ul class="delivery-dates">
-                            <li>{{ $curriculum->delivery_from ?? '7月13日' }} ~ {{ $curriculum->delivery_to ?? '7月13日' }}</li>
-                            <li>{{ $curriculum->delivery_from ?? '7月13日' }} ~ {{ $curriculum->delivery_to ?? '7月13日' }}</li>
-                            <li>{{ $curriculum->delivery_from ?? '7月13日' }} ~ {{ $curriculum->delivery_to ?? '7月13日' }}</li>
-                        </ul>
+                            <ul class="delivery-dates">
+                            @foreach ($curriculum->delivery_times as $time)
+                                <div>{{ \Carbon\Carbon::parse($time->delivery_from)->format('Y-m-d H:i') }} 〜 {{ \Carbon\Carbon::parse($time->delivery_to)->format('Y-m-d H:i') }}</div>
+                            @endforeach
+                            </ul>
+                        </div>
 
                         <div class="button-group">
-                            <a href="{{ route('admin.show.curriculum.edit', $curriculum->id) }}" class="btn btn-sm btn-primary">授業内容編集</a>
-                            <a href="{{ route('admin.show.delivery.edit', $curriculum->id) }}" class="btn btn-sm btn-primary">配信日時編集</a>
+                            <a href="{{ route('admin.show.curriculum.edit', ['id' => $curriculum->id]) }}" class="btn btn-primary">授業内容編集</a>
+                            <a href="{{ route('admin.show.delivery.edit', ['curriculumId' => $curriculum->id]) }}" class="btn btn-primary">配信日時編集</a>
                         </div>
                     </div>
                 @endforeach
@@ -67,14 +69,24 @@
                         grid.innerHTML = ''; 
 
                         data.forEach(c => {
+                            // 配信日時リストを生成
+                            let deliveryList = '';
+                            if (Array.isArray(c.delivery_times) && c.delivery_times.length > 0) {
+                                c.delivery_times.forEach(dt => {
+                                    const from = dt.delivery_from ? dt.delivery_from.substring(0, 12) : '';
+                                    const to = dt.delivery_to ? dt.delivery_to.substring(0, 12) : '';
+                                    deliveryList += `<li>${from} ~ ${to}</li>`;
+                                });
+                            } else {
+                                deliveryList = '<li>配信日時なし</li>';
+                            }
+
                             grid.innerHTML += `
                                 <div class="curriculum-card">
                                     <img src="/storage/images/${c.thumbnail ?? 'images/sample.jpg'}" class="thumbnail" />
                                     <h4>${c.title}</h4>
                                     <ul class="delivery-dates">
-                                        <li>${c.delivery_from ?? '7月13日'} ~ ${c.delivery_to ?? '7月13日'}</li>
-                                        <li>${c.delivery_from ?? '7月13日'} ~ ${c.delivery_to ?? '7月13日'}</li>
-                                        <li>${c.delivery_from ?? '7月13日'} ~ ${c.delivery_to ?? '7月13日'}</li>
+                                        ${deliveryList}
                                     </ul>
                                     <div class="button-group">
                                         <a href="/admin/curriculum_edit/${c.id}" class="btn btn-primary">授業内容編集</a>
@@ -84,7 +96,7 @@
                             `;
                         });
 
-                        const gradeName = this.textContent.trim();
+                        const gradeName = button.textContent.trim();
                         document.querySelector('.current-grade').textContent = `${gradeName}の授業`;
                     });
             });

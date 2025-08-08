@@ -9,24 +9,31 @@ use Illuminate\Support\Facades\DB;
 class Curriculum extends Model
 {
     protected $table = 'curriculums';
-    
+
     public function getByGradeId($gradeId)
     {
         $curriculums = DB::table('curriculums')
-            ->leftjoin('grades', 'curriculums.grade_id', '=', 'grades.id')
-            ->leftjoin('delivery_times', 'curriculums.id', '=', 'delivery_times.curriculum_id')
+            ->leftJoin('grades', 'curriculums.grade_id', '=', 'grades.id')
             ->where('curriculums.grade_id', $gradeId)
             ->select(
                 'curriculums.id',
                 'curriculums.title',
                 'curriculums.thumbnail',
                 'curriculums.always_delivery_flg',
-                'grades.grade_name',
-                'delivery_times.delivery_time',
-                'delivery_times.delivery_to'
+                'grades.grade_name'
             )
-            ->get();
-        
+            ->get()
+            ->map(function ($curriculum) {
+                $deliveryTimes = DB::table('delivery_times')
+                    ->where('curriculum_id', $curriculum->id)
+                    ->select('delivery_from', 'delivery_to')
+                    ->get();
+
+                $curriculum->delivery_times = $deliveryTimes;
+
+                return $curriculum;
+            });
+
         return $curriculums;
     }
 
