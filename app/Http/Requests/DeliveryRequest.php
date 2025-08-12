@@ -24,27 +24,31 @@ class DeliveryRequest extends FormRequest
     public function rules(): array
     {
         $rules = [];
-
+    
         foreach ($this->input('delivery', []) as $index => $item) {
-            if (empty($item['from_date']) && empty($item['from_time']) &&
-                empty($item['to_date']) && empty($item['to_time'])) {
-                continue;
-            }
             $rules["delivery.$index.from_date"] = ['required', 'regex:/^\d{8}$/'];
             $rules["delivery.$index.from_time"] = ['required', 'regex:/^\d{4}$/'];
-            $rules["delivery.$index.to_date"] = ['required', 'regex:/^\d{8}$/'];
-            $rules["delivery.$index.to_time"] = ['required', 'regex:/^\d{4}$/'];
+            $rules["delivery.$index.to_date"]   = ['required', 'regex:/^\d{8}$/'];
+            $rules["delivery.$index.to_time"]   = ['required', 'regex:/^\d{4}$/'];
         }
-
+    
         return $rules;
     }
-
+    
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
             foreach ($this->input('delivery', []) as $index => $item) {
+                // 必須エラーがある場合は比較しない
+                if (
+                    empty($item['from_date']) || empty($item['from_time']) ||
+                    empty($item['to_date'])   || empty($item['to_time'])
+                ) {
+                    continue;
+                }
+    
                 $from = $item['from_date'] . $item['from_time'];
-                $to = $item['to_date'] . $item['to_time'];
+                $to   = $item['to_date'] . $item['to_time'];
     
                 if ($from >= $to) {
                     $validator->errors()->add("delivery.$index.to_date", "終了日時は開始日時より後にしてください。");

@@ -27,6 +27,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/ajax/curriculums/{gradeId}', [CurriculumController::class, 'getCurriculumsByGradeAjax']);
     Route::post('/curriculum_store', [CurriculumController::class, 'showCurriculumStore'])->name('show.curriculum.store');
     Route::put('/curriculum_update/{id}', [CurriculumController::class, 'showCurriculumUpdate'])->name('show.curriculum.update');
-    Route::post('/delivery_update/{curriculumId}', [DeliveryController::class, 'showDeliveryUpdate'])->name('show.delivery.update');
-    Route::delete('/delivery/{id}', [DeliveryController::class, 'showDeliveryDelete'])->name('show.delivery.delete');
+    Route::post('/delivery_update/{curriculumId}', [DeliveryController::class, 'UpdateDeliveryTime'])->name('delivery.update');
+    Route::delete('/delivery/{id}', [DeliveryController::class, 'DeleteDeliveryTime'])->name('delivery.delete');
 });

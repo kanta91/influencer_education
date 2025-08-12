@@ -9,7 +9,7 @@
 <h1 class="page-title">配信日時設定</h1>
 <h2>{{ $curriculum->title }}</h2>
 
-<form action="{{ route('admin.show.delivery.update', ['curriculumId' => $curriculum->id]) }}" method="POST">
+<form action="{{ route('admin.delivery.update', ['curriculumId' => $curriculum->id]) }}" method="POST">
     @csrf
 
     <div id="delivery-schedule-list">

@@ -18,19 +18,15 @@ class DeliveryTime extends Model
     }
 
 
-    public function showDeliveryDelete($id){
+    public function DeleteDeliveryTime($curriculumId){
         return DB::table('delivery_times')
-            ->where('id', $id)
+            ->where('curriculum_id', $curriculumId)
             ->delete();
     }
 
 
-    public function showDeliveryUpdate($request,$curriculumId){
+    public function UpdateDeliveryTime($request,$curriculumId){
         $deliveryData = $request->input('delivery', []);
-
-        DB::table('delivery_times')
-        ->where('curriculum_id', $curriculumId)
-        ->delete();
 
         foreach ($deliveryData as $item) {
             // すべての項目が空ならスキップ
@@ -47,23 +43,13 @@ class DeliveryTime extends Model
             $deliveryFrom = \Carbon\Carbon::createFromFormat('YmdHi', $item['from_date'] . $item['from_time'])->format('Y-m-d H:i');
             $deliveryTo   = \Carbon\Carbon::createFromFormat('YmdHi', $item['to_date'] . $item['to_time'])->format('Y-m-d H:i');
 
-            if (!empty($item['id'])) {
-                DB::table('delivery_times')
-                    ->where('id', $item['id'])
-                    ->update([
-                        'delivery_from' => $deliveryFrom,
-                        'delivery_to' => $deliveryTo,
-                        'updated_at' => now(),
-                    ]);
-            } else {
-                DB::table('delivery_times')->insert([
-                    'curriculum_id' => $curriculumId,
-                    'delivery_from' => $deliveryFrom,
-                    'delivery_to' => $deliveryTo,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
+            DB::table('delivery_times')->insert([
+                'curriculum_id' => $curriculumId,
+                'delivery_from' => $deliveryFrom,
+                'delivery_to' => $deliveryTo,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }
     }
 }

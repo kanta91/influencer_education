@@ -23,13 +23,13 @@ class DeliveryController extends Controller
 
     }
 
-    public function showDeliveryDelete($id){
+    public function DeleteDeliveryTime($id){
 
         DB::beginTransaction();
 
         try {
             $DeliveryTimeModel = new DeliveryTime();
-            $DeliveryTimeModel->showDeliveryDelete($id);
+            $DeliveryTimeModel->DeleteDeliveryTime($id);
             DB::commit();
             return response()->json(['success' => true]);
 
@@ -40,13 +40,14 @@ class DeliveryController extends Controller
     }
 
 
-    public function showDeliveryUpdate(DeliveryRequest $request, $curriculumId){
+    public function UpdateDeliveryTime(DeliveryRequest $request, $curriculumId){
 
         DB::beginTransaction();
 
         try {
             $model = new DeliveryTime();
-            $model->showDeliveryUpdate($request,$curriculumId);
+            $model -> DeleteDeliveryTime($curriculumId);
+            $model->UpdateDeliveryTime($request,$curriculumId);
             DB::commit();
 
         } catch (\Exception $e) {
