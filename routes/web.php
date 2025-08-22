@@ -22,6 +22,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('show.login');
     Route::post('login', [AuthController::class, 'login'])->name('login.submit');
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('register', [AuthController::class, 'showRegisterForm'])->name('show.register');
+    Route::post('register', [AuthController::class, 'register'])->name('register.submit');
 
     Route::middleware('auth:admin')->group(function () {
         Route::get('/top', [TopController::class, 'showTop'])->name('show.top');
