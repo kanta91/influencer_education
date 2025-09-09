@@ -30,5 +30,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/curriculum_list', [CurriculumController::class, 'showCurriculumList'])->name('show.curriculum.list');
         Route::get('/article_list', [ArticleController::class, 'showArticleList'])->name('show.article.list');
         Route::get('/banner_edit', [BannerController::class, 'showBannerEdit'])->name('show.banner.edit');
+        Route::post('/banner_update', [BannerController::class, 'update'])->name('update.banner');
+        Route::delete('/banner_delete/{id}', [BannerController::class, 'destroy'])->name('delete.banner');
     });
 });

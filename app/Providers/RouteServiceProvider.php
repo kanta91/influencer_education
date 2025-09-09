@@ -38,7 +38,7 @@ class RouteServiceProvider extends ServiceProvider
                     require base_path('routes/web.php');
 
                     Route::get('/login', function () {
-                        return redirect()->route('admin.login');
+                        return redirect()->route('admin.show.login');
                     })->name('login');
                 });
         });
